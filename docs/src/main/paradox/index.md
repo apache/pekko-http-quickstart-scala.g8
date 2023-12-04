@@ -14,7 +14,7 @@ This guide highlights Pekko HTTP fundamentals in the context of a simple user re
 
 ## Prerequisite
 
-Having a basic understanding of Pekko actors will make it easier to understand the example. If you are new to Pekko, we recommend completing the [Pekko Quickstart](https://developer.lightbend.com/guides/pekko-quickstart-scala/) guide before this tutorial.
+Having a basic understanding of Pekko actors will make it easier to understand the example.
 
 You can run the Pekko HTTP example project on Linux, MacOS, or Windows. The only prerequisite is Java 8.
 
