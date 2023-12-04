@@ -23,5 +23,5 @@ lazy val docs = project
   .enablePlugins(ParadoxPlugin, PekkoParadoxPlugin)
   .settings(
     resolvers += Resolver.typesafeIvyRepo("releases"),
-    pekkoParadoxGithub := Some("https://github.com/apache/incubator-pekko-http-quickstart.g8")
+    pekkoParadoxGithub := Some("https://github.com/apache/incubator-pekko-http-quickstart-scala.g8")
   )
