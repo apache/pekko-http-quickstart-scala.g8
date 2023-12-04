@@ -1,3 +1,5 @@
+import org.apache.pekko.PekkoParadoxPlugin.autoImport._
+
 // This build is for this Giter8 template.
 // To test the template run `g8` or `g8Test` from the sbt session.
 // See http://www.foundweekends.org/giter8/testing.html#Using+the+Giter8Plugin for more details.
@@ -5,7 +7,7 @@ lazy val root = project
   .in(file("."))
   .enablePlugins(ScriptedPlugin)
   .settings(
-    name := "akka-http-scala-seed.g8",
+    name := "incubator-pekko-http-scala-seed.g8",
     Test / test := {
       val _ = (Test / g8Test).toTask("").value
     },
@@ -18,7 +20,8 @@ lazy val root = project
 //    open docs/target/paradox/site/main/index.html
 lazy val docs = project
   .in(file("docs"))
-  .enablePlugins(ParadoxPlugin)
+  .enablePlugins(ParadoxPlugin, PekkoParadoxPlugin)
   .settings(
-    resolvers += Resolver.typesafeIvyRepo("releases")
+    resolvers += Resolver.typesafeIvyRepo("releases"),
+    pekkoParadoxGithub := Some("https://github.com/apache/incubator-pekko-http-quickstart.g8")
   )

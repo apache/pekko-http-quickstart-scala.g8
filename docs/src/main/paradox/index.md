@@ -1,13 +1,12 @@
-Akka HTTP Quickstart for Scala
-==============================
+# Apache Pekko HTTP Quickstart for Scala
 
-Akka HTTP offers a general toolkit for providing and consuming HTTP-based services. The Akka HTTP modules implement a full server- and client-side HTTP stack on top of `akka-actor` and `akka-stream`. A typical application does not sit on top of Akka HTTP. Instead, Akka HTTP makes it easier to build integration layers based on HTTP, and therefore stays on the sidelines. This allows you to base your app on what makes sense and use Akka HTTP for HTTP integration.
+Pekko HTTP offers a general toolkit for providing and consuming HTTP-based services. The Pekko HTTP modules implement a full server- and client-side HTTP stack on top of `pekko-actor` and `pekko-stream`. A typical application does not sit on top of Pekko HTTP. Instead, Pekko HTTP makes it easier to build integration layers based on HTTP, and therefore stays on the sidelines. This allows you to base your app on what makes sense and use Pekko HTTP for HTTP integration.
 
-Akka HTTP is not a framework--not because we don't like frameworks--but to provide maximum flexibility. For example, you might use the Play framework to implement browser-based interactions or Lagom framework for creating microservices, both of them are also based on Akka.
+Pekko HTTP is not a framework--not because we don't like frameworks--but to provide maximum flexibility. For example, you might use the Play framework to implement browser-based interactions or Lagom framework for creating microservices, both of them are also based on Pekko.
 
-Akka HTTP follows a rather open design and often offers several APIs for accomplishing the same thing. You can choose the API with the level of abstraction that best suits your application.  If you have trouble achieving something using a high-level API, you can probably find a lower-level API to use. The low-level APIs offer more flexibility, but might require you to write more application code.
+Pekko HTTP follows a rather open design and often offers several APIs for accomplishing the same thing. You can choose the API with the level of abstraction that best suits your application.  If you have trouble achieving something using a high-level API, you can probably find a lower-level API to use. The low-level APIs offer more flexibility, but might require you to write more application code.
 
-This guide highlights Akka HTTP fundamentals in the context of a simple user registry [REST service](https://en.wikipedia.org/wiki/Representational_state_transfer). Within 30 minutes, you should be able to:
+This guide highlights Pekko HTTP fundamentals in the context of a simple user registry [REST service](https://en.wikipedia.org/wiki/Representational_state_transfer). Within 30 minutes, you should be able to:
 
 * Download the quickstart project and run the app.
 * Follow this guide to explore the code.
@@ -15,18 +14,18 @@ This guide highlights Akka HTTP fundamentals in the context of a simple user reg
 
 ## Prerequisite
 
-Having a basic understanding of Akka actors will make it easier to understand the example. If you are new to Akka, we recommend completing the [Akka Quickstart](https://developer.lightbend.com/guides/akka-quickstart-scala/) guide before this tutorial.
+Having a basic understanding of Pekko actors will make it easier to understand the example. If you are new to Pekko, we recommend completing the [Pekko Quickstart](https://developer.lightbend.com/guides/pekko-quickstart-scala/) guide before this tutorial.
 
-You can run the Akka HTTP example project on Linux, MacOS, or Windows. The only prerequisite is Java 8.
+You can run the Pekko HTTP example project on Linux, MacOS, or Windows. The only prerequisite is Java 8.
 
 ## Downloading the example
 
-The Akka HTTP example for Scala is a zipped project that includes a distribution of the [sbt](http://www.scala-sbt.org) build tool. Download and unzip the example as follows:
+The Pekko HTTP example for Scala is a zipped project that includes a distribution of the [sbt](http://www.scala-sbt.org) build tool. Download and unzip the example as follows:
 
-1. Download the project [zip file](https://example.lightbend.com/v1/download/akka-http-quickstart-scala?name=akka-http-quickstart-scala).
+1. Download the project [zip file](https://example.lightbend.com/v1/download/pekko-http-quickstart-scala?name=pekko-http-quickstart-scala).
 2. Extract the zip file to a convenient location:
 
-* On Linux and MacOS systems, open a terminal and use the command `unzip` akka-quickstart-scala.zip. Note: On OSX, if you unzip using Archiver, you also have to make the sbt files executable by entering the following two commands:
+* On Linux and MacOS systems, open a terminal and use the command `unzip` pekko-quickstart-scala.zip. Note: On OSX, if you unzip using Archiver, you also have to make the sbt files executable by entering the following two commands:
 
 ```
 $ chmod u+x ./sbt
@@ -41,7 +40,7 @@ To run Hello World:
 
 In a console, change directories to the top level of the unzipped project.
 
-For example, if you used the default project name, `akka-http-quickstart-scala`, and extracted the project to your root directory, from the root directory, enter: `cd akka-http-quickstart-scala`
+For example, if you used the default project name, `pekko-http-quickstart-scala`, and extracted the project to your root directory, from the root directory, enter: `cd pekko-http-quickstart-scala`
 
 Start sbt:
 
@@ -52,7 +51,7 @@ When you run sbt, it downloads project dependencies. The `>` prompt indicates th
 
 At the sbt prompt, enter `reStart`.
 
-sbt builds the project, starts an Akka HTTP server, and runs the example application.
+sbt builds the project, starts a Pekko HTTP server, and runs the example application.
 
 The output should look something like this:
 
@@ -60,17 +59,17 @@ The output should look something like this:
 [info] Loading global plugins from /Users/x/.sbt/0.13/plugins
 ...
 [info] Running com.example.QuickstartServer
-[2019-10-24 15:26:39,182] [INFO] [HelloAkkaHttpServer] [HelloAkkaHttpServer-akka.actor.default-dispatcher-3] [akka://HelloAkkaHttpServer/user/HttpServer] - Server online at http://127.0.0.1:8080/
+[2019-10-24 15:26:39,182] [INFO] [HelloPekkoHttpServer] [HelloPekkoHttpServer-pekko.actor.default-dispatcher-3] [pekko://HelloPekkoHttpServer/user/HttpServer] - Server online at http://127.0.0.1:8080/
 ```
 
-The Akka HTTP server is now running, and you can test it by sending simple HTTP requests.
+The Pekko HTTP server is now running, and you can test it by sending simple HTTP requests.
 
 You can restart it by entering `reStart` again, and stop it with `reStop`.
 To restart your application each time a change is detected, run `~reStart`.
 
 ## Example app overview
 
-The user registry example contains functionality for adding, retrieving, or deleting a single user and for  retrieving all users. Akka HTTP provides a [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language) (DSL) to simplify the definition of endpoints as a `Route`. In this example, a `Route` defines: the paths `/users` and `/user`, the available HTTP methods, and when applicable, parameters or payloads.
+The user registry example contains functionality for adding, retrieving, or deleting a single user and for  retrieving all users. Pekko HTTP provides a [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language) (DSL) to simplify the definition of endpoints as a `Route`. In this example, a `Route` defines: the paths `/users` and `/user`, the available HTTP methods, and when applicable, parameters or payloads.
 
 When the example app starts up, it creates an ActorSystem with a `UserRegistry` Actor and binds the defined routes to a port, in this case, `localhost:8080`. When the endpoints are invoked, they interact with the `UserRegistry` Actor, which contains the business logic. The diagram below illustrates runtime behavior, where that the HTTP server receives for the defined `route` endpoints, which are handled by the `UserRegistry` actor:
 
@@ -173,12 +172,12 @@ The system should respond with a list of users in JSON format.
 
 ## Learning from the example
 
-Congratulations, you just ran and exercised your first Akka HTTP app! You got a preview of how routes make it easy to communicate over HTTP.
+Congratulations, you just ran and exercised your first Pekko HTTP app! You got a preview of how routes make it easy to communicate over HTTP.
 
 The example is implemented in the following four source files:
 
 * `QuickstartApp.scala` -- contains the main method which bootstraps the application 
-* `UserRoutes.scala` -- Akka HTTP `routes` defining exposed endpoints
+* `UserRoutes.scala` -- Pekko HTTP `routes` defining exposed endpoints
 * `UserRegistry.scala` -- the actor which handles the registration requests
 * `JsonFormats.scala` -- converts the JSON data from requests into Scala types and from Scala types into JSON responses
 

@@ -2,11 +2,12 @@ package $package$
 
 //#user-routes-spec
 //#test-top
-import akka.actor.testkit.typed.scaladsl.ActorTestKit
-import akka.actor.typed.ActorSystem
-import akka.http.scaladsl.marshalling.Marshal
-import akka.http.scaladsl.model._
-import akka.http.scaladsl.testkit.ScalatestRouteTest
+import org.apache.pekko
+import pekko.actor.testkit.typed.scaladsl.ActorTestKit
+import pekko.actor.typed.ActorSystem
+import pekko.http.scaladsl.marshalling.Marshal
+import pekko.http.scaladsl.model._
+import pekko.http.scaladsl.testkit.ScalatestRouteTest
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -15,11 +16,11 @@ import org.scalatest.wordspec.AnyWordSpec
 class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with ScalatestRouteTest {
   //#test-top
 
-  // the Akka HTTP route testkit does not yet support a typed actor system (https://github.com/akka/akka-http/issues/2036)
+  // the Pekko HTTP route testkit does not yet support a typed actor system (https://github.com/akka/akka-http/issues/2036)
   // so we have to adapt for now
   lazy val testKit = ActorTestKit()
   implicit def typedSystem: ActorSystem[_] = testKit.system
-  override def createActorSystem(): akka.actor.ActorSystem =
+  override def createActorSystem(): pekko.actor.ActorSystem =
     testKit.system.classicSystem
 
   // Here we need to implement all the abstract members of UserRoutes.
@@ -30,7 +31,7 @@ class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with Sc
   lazy val routes = new UserRoutes(userRegistry).userRoutes
 
   // use the json formats to marshal and unmarshall objects in the test
-  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+  import pekko.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
   import JsonFormats._
   //#set-up
 

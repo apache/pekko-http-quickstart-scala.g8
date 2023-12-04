@@ -9,7 +9,7 @@ When you ran the example for the first time, you were able to create and retriev
 
 To test this functionality, follow these steps. If you need reminders on starting the app or sending requests, refer to the @ref:[instructions](index.md#exercising-the-example) in the beginning.
 
-`1.` If the Akka HTTP server is still running, stop and restart it.
+`1.` If the Pekko HTTP server is still running, stop and restart it.
 `2.` With no users registered, use your tool of choice to:
 `3.` Retrieve a list of users. Hint: use the `GET` method and append `/users` to the URL.
 

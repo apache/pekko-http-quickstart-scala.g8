@@ -1,11 +1,11 @@
-# Sample Akka HTTP server
+# Sample Pekko HTTP server
 
-This is a sample Akka HTTP endpoint keeping an in-memory database of users that can be created and listed.
+This is a sample Pekko HTTP endpoint keeping an in-memory database of users that can be created and listed.
 
 Sources in the sample:
 
 * `QuickstartApp.scala` -- contains the main method which bootstraps the application
-* `UserRoutes.scala` -- Akka HTTP `routes` defining exposed endpoints
+* `UserRoutes.scala` -- Pekko HTTP `routes` defining exposed endpoints
 * `UserRegistry.scala` -- the actor which handles the registration requests
 * `JsonFormats.scala` -- converts the JSON data from requests into Scala types and from Scala types into JSON responses
 
