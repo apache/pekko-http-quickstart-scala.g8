@@ -2,7 +2,7 @@
 
 Pekko HTTP offers a general toolkit for providing and consuming HTTP-based services. The Pekko HTTP modules implement a full server- and client-side HTTP stack on top of `pekko-actor` and `pekko-stream`. A typical application does not sit on top of Pekko HTTP. Instead, Pekko HTTP makes it easier to build integration layers based on HTTP, and therefore stays on the sidelines. This allows you to base your app on what makes sense and use Pekko HTTP for HTTP integration.
 
-Pekko HTTP is not a framework--not because we don't like frameworks--but to provide maximum flexibility. For example, you might use the Play framework to implement browser-based interactions or Lagom framework for creating microservices, both of them are also based on Pekko.
+Pekko HTTP is not a framework--not because we don't like frameworks--but to provide maximum flexibility. For example, you might use the Play framework to implement browser-based interactions.
 
 Pekko HTTP follows a rather open design and often offers several APIs for accomplishing the same thing. You can choose the API with the level of abstraction that best suits your application.  If you have trouble achieving something using a high-level API, you can probably find a lower-level API to use. The low-level APIs offer more flexibility, but might require you to write more application code.
 
@@ -20,17 +20,7 @@ You can run the Pekko HTTP example project on Linux, MacOS, or Windows. The only
 
 ## Downloading the example
 
-The Pekko HTTP example for Scala is a zipped project that includes a distribution of the [sbt](http://www.scala-sbt.org) build tool. Download and unzip the example as follows:
-
-1. Download the project [zip file](https://example.lightbend.com/v1/download/pekko-http-quickstart-scala?name=pekko-http-quickstart-scala).
-2. Extract the zip file to a convenient location:
-
-* On Linux and MacOS systems, open a terminal and use the command `unzip` pekko-quickstart-scala.zip. Note: On OSX, if you unzip using Archiver, you also have to make the sbt files executable by entering the following two commands:
-
-```
-$ chmod u+x ./sbt
-$ chmod u+x ./sbt-dist/bin/sbt
-```
+Follow the instructions in https://github.com/apache/incubator-pekko-http-quickstart-scala.g8
 
 * On Windows, use a tool such as File Explorer to extract the project.
 
