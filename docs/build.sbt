@@ -1,5 +1,3 @@
-// Uses the out of the box generic theme.
-paradoxTheme := Some(builtinParadoxTheme("generic"))
 
 Compile / paradoxProperties ++= Map(
   "snip.g8root.base_dir" -> "../../../../src/main/g8",
