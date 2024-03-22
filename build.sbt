@@ -7,7 +7,7 @@ lazy val root = project
   .in(file("."))
   .enablePlugins(ScriptedPlugin)
   .settings(
-    name := "incubator-pekko-http-scala-seed.g8",
+    name := "pekko-http-scala-seed.g8",
     Test / test := {
       val _ = (Test / g8Test).toTask("").value
     },
@@ -23,5 +23,5 @@ lazy val docs = project
   .enablePlugins(ParadoxPlugin, PekkoParadoxPlugin)
   .settings(
     resolvers += Resolver.typesafeIvyRepo("releases"),
-    pekkoParadoxGithub := Some("https://github.com/apache/incubator-pekko-http-quickstart-scala.g8")
+    pekkoParadoxGithub := Some("https://github.com/apache/pekko-http-quickstart-scala.g8")
   )
