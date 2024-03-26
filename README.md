@@ -8,12 +8,12 @@ Prerequisites:
 
 Open a console and run the following command to apply this template:
  ```
-sbt new apache/incubabor-pekko-http-quickstart-scala.g8
+sbt new apache/pekko-http-quickstart-scala.g8
  ```
 
 You can also install [Giter8](http://www.foundweekends.org/giter8/setup.html) and install using:
  ```
-g8 apache/incubabor-pekko-http-quickstart-scala.g8
+g8 apache/pekko-http-quickstart-scala.g8
  ```
 
 This template will prompt for the following parameters. Press `Enter` if the default values suit you:
