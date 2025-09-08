@@ -9,24 +9,27 @@ on:
 jobs:
   build-test:
     if: github.repository == 'apache/pekko-http-quickstart-scala.g8'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Java 11
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 11
 
+      - name: Install sbt
+        uses: sbt/setup-sbt@17575ea4e18dd928fe5968dbe32294b97923d65b # v1.1.13
+
       - name: Cache Coursier cache
-        uses: coursier/cache-action@v6
+        uses: coursier/cache-action@4e2615869d13561d626ed48655e1a39e5b192b3c # v6.4.7
 
       - name: sbt & Paradox
         run: sbt test docs/paradox
 
-      - name: generate and test, Scala 3
+      - name: generate and test, Scala 2.13
         run: |-
-          sbt new file://$PWD --name=hello-world --scala_version=3.3.1 --force && pushd hello-world &&  sbt test
+          sbt new file://$PWD --name=hello-world --scala_version=2.13.16 --force && pushd hello-world &&  sbt test
