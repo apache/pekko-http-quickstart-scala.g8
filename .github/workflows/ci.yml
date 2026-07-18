@@ -32,4 +32,6 @@ jobs:
 
       - name: generate and test, Scala 2.13
         run: |-
-          sbt new file://$PWD --name=hello-world --scala_version=2.13.18 --force && pushd hello-world &&  sbt test
+          sbt -sbt-version 1.12.14 new file://$PWD --name=hello-world --scala_version=2.13.18 --force
+          pushd hello-world
+          sbt -sbt-version 1.12.14 test
