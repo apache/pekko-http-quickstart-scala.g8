@@ -23,8 +23,6 @@ jobs:
 
       - name: Install sbt
         uses: sbt/setup-sbt@9d56cf12e9b58d219605e1d8bfe69a8395fedde0 # v1.5.1
-        with:
-          sbt-runner-version: 1.12.14
 
       - name: Cache Coursier cache
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
@@ -34,6 +32,7 @@ jobs:
 
       - name: generate and test, Scala 2.13
         run: |-
-          sbt new file://$PWD --name=hello-world --scala_version=2.13.18 --force
+          export SBT_VERSION=1.12.14
+          sbt -Dsbt.version=$SBT_VERSION new file://$PWD --name=hello-world --scala_version=2.13.18 --force
           cd hello-world
-          sbt test
+          sbt -Dsbt.version=$SBT_VERSION test
