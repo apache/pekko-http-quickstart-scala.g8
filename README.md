@@ -44,3 +44,10 @@ and neighboring rights to this template to the public domain worldwide.
 This template is distributed without any warranty. See <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 [g8]: http://www.foundweekends.org/giter8/
+
+## Formatting generated projects
+
+The generated sbt project uses the Apache Pekko Scalafmt configuration.
+Run `sbt applyCodeStyle` to format source and build files, then
+`sbt checkCodeStyle` to check formatting.
+These tasks do not format generated managed sources.
