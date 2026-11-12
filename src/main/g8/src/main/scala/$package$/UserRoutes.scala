@@ -1,28 +1,29 @@
 package $package$
 
 import org.apache.pekko
-import pekko.http.scaladsl.server.Directives._
+import pekko.http.scaladsl.server.Directives.*
 import pekko.http.scaladsl.model.StatusCodes
 import pekko.http.scaladsl.server.Route
 
 import scala.concurrent.Future
-import $package$.UserRegistry._
+import $package$.UserRegistry.*
 import pekko.actor.typed.ActorRef
 import pekko.actor.typed.ActorSystem
-import pekko.actor.typed.scaladsl.AskPattern._
+import pekko.actor.typed.scaladsl.AskPattern.*
 import pekko.util.Timeout
 
 //#import-json-formats
 //#user-routes-class
-class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit val system: ActorSystem[_]) {
+class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit val system: ActorSystem[?]) {
 
-  //#user-routes-class
-  import pekko.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-  import JsonFormats._
-  //#import-json-formats
+  // #user-routes-class
+  import pekko.http.scaladsl.marshallers.sprayjson.SprayJsonSupport.*
+  import JsonFormats.*
+  // #import-json-formats
 
   // If ask takes more time than this to complete the request is failed
-  private implicit val timeout: Timeout = Timeout.create(system.settings.config.getDuration("my-app.routes.ask-timeout"))
+  private implicit val timeout: Timeout =
+    Timeout.create(system.settings.config.getDuration("my-app.routes.ask-timeout"))
 
   def getUsers(): Future[Users] =
     userRegistry.ask(GetUsers.apply)
@@ -33,13 +34,13 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit val syst
   def deleteUser(name: String): Future[ActionPerformed] =
     userRegistry.ask(DeleteUser(name, _))
 
-  //#all-routes
-  //#users-get-post
-  //#users-get-delete
+  // #all-routes
+  // #users-get-post
+  // #users-get-delete
   val userRoutes: Route =
     pathPrefix("users") {
       concat(
-        //#users-get-delete
+        // #users-get-delete
         pathEnd {
           concat(
             get {
@@ -53,28 +54,28 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit val syst
               }
             })
         },
-        //#users-get-delete
-        //#users-get-post
+        // #users-get-delete
+        // #users-get-post
         path(Segment) { name =>
           concat(
             get {
-              //#retrieve-user-info
+              // #retrieve-user-info
               rejectEmptyResponse {
                 onSuccess(getUser(name)) { response =>
                   complete(response.maybeUser)
                 }
               }
-              //#retrieve-user-info
+              // #retrieve-user-info
             },
             delete {
-              //#users-delete-logic
+              // #users-delete-logic
               onSuccess(deleteUser(name)) { performed =>
                 complete((StatusCodes.OK, performed))
               }
-              //#users-delete-logic
+              // #users-delete-logic
             })
         })
-      //#users-get-delete
+      // #users-get-delete
     }
-  //#all-routes
+  // #all-routes
 }

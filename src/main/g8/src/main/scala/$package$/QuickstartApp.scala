@@ -11,8 +11,8 @@ import scala.util.Success
 
 //#main-class
 object QuickstartApp {
-  //#start-http-server
-  private def startHttpServer(routes: Route)(implicit system: ActorSystem[_]): Unit = {
+  // #start-http-server
+  private def startHttpServer(routes: Route)(implicit system: ActorSystem[?]): Unit = {
     // Pekko HTTP still needs a classic ActorSystem to start
     import system.executionContext
 
@@ -26,9 +26,9 @@ object QuickstartApp {
         system.terminate()
     }
   }
-  //#start-http-server
+  // #start-http-server
   def main(args: Array[String]): Unit = {
-    //#server-bootstrapping
+    // #server-bootstrapping
     val rootBehavior = Behaviors.setup[Nothing] { context =>
       val userRegistryActor = context.spawn(UserRegistry(), "UserRegistryActor")
       context.watch(userRegistryActor)
@@ -39,7 +39,7 @@ object QuickstartApp {
       Behaviors.empty
     }
     val system = ActorSystem[Nothing](rootBehavior, "HelloPekkoHttpServer")
-    //#server-bootstrapping
+    // #server-bootstrapping
   }
 }
 //#main-class
