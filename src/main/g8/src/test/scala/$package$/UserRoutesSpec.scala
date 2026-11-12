@@ -6,7 +6,7 @@ import org.apache.pekko
 import pekko.actor.testkit.typed.scaladsl.ActorTestKit
 import pekko.actor.typed.ActorSystem
 import pekko.http.scaladsl.marshalling.Marshal
-import pekko.http.scaladsl.model._
+import pekko.http.scaladsl.model.*
 import pekko.http.scaladsl.testkit.ScalatestRouteTest
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
@@ -14,12 +14,12 @@ import org.scalatest.wordspec.AnyWordSpec
 
 //#set-up
 class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with ScalatestRouteTest {
-  //#test-top
+  // #test-top
 
   // the Pekko HTTP route testkit does not yet support a typed actor system (https://github.com/akka/akka-http/issues/2036)
   // so we have to adapt for now
   lazy val testKit = ActorTestKit()
-  implicit def typedSystem: ActorSystem[_] = testKit.system
+  implicit def typedSystem: ActorSystem[?] = testKit.system
   override def createActorSystem(): pekko.actor.ActorSystem =
     testKit.system.classicSystem
 
@@ -31,11 +31,11 @@ class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with Sc
   lazy val routes = new UserRoutes(userRegistry).userRoutes
 
   // use the json formats to marshal and unmarshall objects in the test
-  import pekko.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-  import JsonFormats._
-  //#set-up
+  import pekko.http.scaladsl.marshallers.sprayjson.SprayJsonSupport.*
+  import JsonFormats.*
+  // #set-up
 
-  //#actual-test
+  // #actual-test
   "UserRoutes" should {
     "return no users if no present (GET /users)" in {
       // note that there's no need for the host part in the uri:
@@ -51,9 +51,9 @@ class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with Sc
         entityAs[String] should ===("""{"users":[]}""")
       }
     }
-    //#actual-test
+    // #actual-test
 
-    //#testing-post
+    // #testing-post
     "be able to add users (POST /users)" in {
       val user = User("Kapi", 42, "jp")
       val userEntity = Marshal(user).to[MessageEntity].futureValue // futureValue is from ScalaFutures
@@ -71,7 +71,7 @@ class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with Sc
         entityAs[String] should ===("""{"description":"User Kapi created."}""")
       }
     }
-    //#testing-post
+    // #testing-post
 
     "be able to remove users (DELETE /users)" in {
       // user the RequestBuilding DSL provided by ScalatestRouteSpec:
@@ -87,11 +87,11 @@ class UserRoutesSpec extends AnyWordSpec with Matchers with ScalaFutures with Sc
         entityAs[String] should ===("""{"description":"User Kapi deleted."}""")
       }
     }
-    //#actual-test
+    // #actual-test
   }
-  //#actual-test
+  // #actual-test
 
-  //#set-up
+  // #set-up
 }
 //#set-up
 //#user-routes-spec
