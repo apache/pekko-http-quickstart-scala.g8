@@ -1,5 +1,8 @@
 package $package$
 
+// Preserve documentation snippet boundaries.
+// scalafix:off OrganizeImports
+
 import $package$.UserRegistry.ActionPerformed
 
 //#json-formats
@@ -16,3 +19,4 @@ object JsonFormats  {
   implicit val actionPerformedJsonFormat: RootJsonFormat[ActionPerformed]  = jsonFormat1(ActionPerformed.apply)
 }
 //#json-formats
+// scalafix:on OrganizeImports
